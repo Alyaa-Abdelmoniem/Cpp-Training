@@ -1,5 +1,0 @@
-﻿Build started...
-1>------ Build started: Project: Task1Training, Configuration: Debug x64 ------
-1>Task1Training.cpp
-1>Task1Training.vcxproj -> C:\Users\ascom\source\repos\Task1Training\x64\Debug\Task1Training.exe
-========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
