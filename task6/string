@@ -1,0 +1,109 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    int choice;
+
+    cout << "1. Reverse String" << endl;
+    cout << "2. Count Character Occurrence" << endl;
+    cout << "3. Find Longest Word" << endl;
+    cout << "4. Remove Spaces" << endl;
+    cout << "Enter your choice: ";
+    cin >> choice;
+    cin.ignore();
+
+    if (choice == 1)
+    {
+        string s;
+
+        cout << "Enter string: ";
+        getline(cin, s);
+
+        for (int i = s.length() - 1; i >= 0; i--)
+        {
+            cout << s[i];
+        }
+    }
+
+    else if (choice == 2)
+    {
+        string s;
+        char ch;
+        int count = 0;
+
+        cout << "Enter string: ";
+        getline(cin, s);
+
+        cout << "Enter character: ";
+        cin >> ch;
+
+        for (int i = 0; i < s.length(); i++)
+        {
+            if (s[i] == ch)
+            {
+                count++;
+            }
+        }
+
+        cout << "Count = " << count;
+    }
+
+    else if (choice == 3)
+    {
+        string s;
+        string word = "";
+        string longest = "";
+
+        cout << "Enter sentence: ";
+        getline(cin, s);
+
+        s += ' ';
+
+        for (int i = 0; i < s.length(); i++)
+        {
+            if (s[i] != ' ')
+            {
+                word += s[i];
+            }
+            else
+            {
+                if (word.length() > longest.length())
+                {
+                    longest = word;
+                }
+
+                word = "";
+            }
+        }
+
+        cout << "Longest Word = " << longest;
+    }
+
+    else if (choice == 4)
+    {
+        string s;
+        string result = "";
+
+        cout << "Enter string: ";
+        getline(cin, s);
+
+        for (int i = 0; i < s.length(); i++)
+        {
+            if (s[i] != ' ')
+            {
+                result += s[i];
+            }
+        }
+
+        cout << "String without spaces = " << result;
+    }
+
+    else
+    {
+        cout << "Invalid Choice";
+    }
+
+    return 0;
+}
