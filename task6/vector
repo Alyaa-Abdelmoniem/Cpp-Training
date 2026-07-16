@@ -1,0 +1,167 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+    int choice;
+
+    cout << "1. Reverse Vector" << endl;
+    cout << "2. Count Occurrence" << endl;
+    cout << "3. Second Largest" << endl;
+    cout << "4. Remove Duplicates" << endl;
+    cout << "Enter your choice: ";
+    cin >> choice;
+
+    if (choice == 1)
+    {
+        int n;
+        cout << "Enter number of elements: ";
+        cin >> n;
+
+        vector<int> v(n);
+
+        cout << "Enter elements: ";
+        for (int i = 0; i < n; i++)
+        {
+            cin >> v[i];
+        }
+
+        for (int i = 0; i < n / 2; i++)
+        {
+            int temp = v[i];
+            v[i] = v[n - 1 - i];
+            v[n - 1 - i] = temp;
+        }
+
+        cout << "After Reverse: ";
+        for (int i = 0; i < n; i++)
+        {
+            cout << v[i] << " ";
+        }
+    }
+
+    else if (choice == 2)
+    {
+        int n;
+        cout << "Enter number of elements: ";
+        cin >> n;
+
+        vector<int> v(n);
+
+        cout << "Enter elements: ";
+        for (int i = 0; i < n; i++)
+        {
+            cin >> v[i];
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            bool found = false;
+
+            for (int j = 0; j < i; j++)
+            {
+                if (v[i] == v[j])
+                {
+                    found = true;
+                }
+            }
+
+            if (!found)
+            {
+                int count = 0;
+
+                for (int j = 0; j < n; j++)
+                {
+                    if (v[i] == v[j])
+                    {
+                        count++;
+                    }
+                }
+
+                cout << v[i] << " : " << count << endl;
+            }
+        }
+    }
+
+    else if (choice == 3)
+    {
+        int n;
+        cout << "Enter number of elements: ";
+        cin >> n;
+
+        vector<int> v(n);
+
+        cout << "Enter elements: ";
+        for (int i = 0; i < n; i++)
+        {
+            cin >> v[i];
+        }
+
+        int largest = v[0];
+        int second = v[0];
+
+        for (int i = 1; i < n; i++)
+        {
+            if (v[i] > largest)
+            {
+                second = largest;
+                largest = v[i];
+            }
+            else if (v[i] > second && v[i] != largest)
+            {
+                second = v[i];
+            }
+        }
+
+        cout << "Second Largest = " << second;
+    }
+
+    else if (choice == 4)
+    {
+        int n;
+        cout << "Enter number of elements: ";
+        cin >> n;
+
+        vector<int> v(n);
+        vector<int> result;
+
+        cout << "Enter elements: ";
+        for (int i = 0; i < n; i++)
+        {
+            cin >> v[i];
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            bool found = false;
+
+            for (int j = 0; j < result.size(); j++)
+            {
+                if (v[i] == result[j])
+                {
+                    found = true;
+                }
+            }
+
+            if (!found)
+            {
+                result.push_back(v[i]);
+            }
+        }
+
+        cout << "After Removing Duplicates: ";
+
+        for (int i = 0; i < result.size(); i++)
+        {
+            cout << result[i] << " ";
+        }
+    }
+
+    else
+    {
+        cout << "Invalid Choice";
+    }
+
+    return 0;
+}
