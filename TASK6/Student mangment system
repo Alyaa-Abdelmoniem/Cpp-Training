@@ -1,0 +1,46 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Student
+{
+private:
+    int id;
+    string name;
+    float grade;
+
+public:
+    void setData()
+    {
+        cout << "Enter Student ID: ";
+        cin >> id;
+
+        cin.ignore();
+
+        cout << "Enter Student Name: ";
+        getline(cin, name);
+
+        cout << "Enter Student Grade: ";
+        cin >> grade;
+    }
+
+    void displayData()
+    {
+        cout << "\nStudent Information\n";
+        cout << "ID: " << id << endl;
+        cout << "Name: " << name << endl;
+        cout << "Grade: " << grade << endl;
+    }
+};
+
+int main()
+{
+    Student s1;
+
+    s1.setData();
+
+    s1.displayData();
+
+    return 0;
+}
