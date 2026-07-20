@@ -1,0 +1,247 @@
+#include <iostream>
+using namespace std;
+
+class Complex
+{
+private:
+    double* real;
+    double* imag;
+
+public:
+
+    Complex()
+    {
+        real = new double(0);
+        imag = new double(0);
+    }
+
+    Complex(double r, double i)
+    {
+        real = new double(r);
+        imag = new double(i);
+    }
+
+    Complex(const Complex& obj)
+    {
+        real = new double(*obj.real);
+        imag = new double(*obj.imag);
+    }
+
+    Complex& operator=(const Complex& obj)
+    {
+        if (this != &obj)
+        {
+            *real = *obj.real;
+            *imag = *obj.imag;
+        }
+
+        return *this;
+    }
+
+    ~Complex()
+    {
+        delete real;
+        delete imag;
+    }
+
+    double getReal() const
+    {
+        return *real;
+    }
+
+    double getImag() const
+    {
+        return *imag;
+    }
+
+    void setReal(double r)
+    {
+        *real = r;
+    }
+
+    void setImag(double i)
+    {
+        *imag = i;
+    }
+
+    Complex operator+(const Complex& obj)
+    {
+        Complex temp;
+        *temp.real = *real + *obj.real;
+        *temp.imag = *imag + *obj.imag;
+        return temp;
+    }
+
+    Complex operator-(const Complex& obj)
+    {
+        Complex temp;
+        *temp.real = *real - *obj.real;
+        *temp.imag = *imag - *obj.imag;
+        return temp;
+    }
+
+    Complex operator*(const Complex& obj)
+    {
+        Complex temp;
+        *temp.real = (*real * *obj.real) - (*imag * *obj.imag);
+        *temp.imag = (*real * *obj.imag) + (*imag * *obj.real);
+        return temp;
+    }
+
+    Complex operator/(const Complex& obj)
+    {
+        Complex temp;
+
+        double den = (*obj.real * *obj.real) + (*obj.imag * *obj.imag);
+
+        *temp.real = ((*real * *obj.real) + (*imag * *obj.imag)) / den;
+        *temp.imag = ((*imag * *obj.real) - (*real * *obj.imag)) / den;
+
+        return temp;
+    }
+
+    Complex& operator+=(const Complex& obj)
+    {
+        *real += *obj.real;
+        *imag += *obj.imag;
+        return *this;
+    }
+
+    Complex& operator-=(const Complex& obj)
+    {
+        *real -= *obj.real;
+        *imag -= *obj.imag;
+        return *this;
+    }
+
+    bool operator==(const Complex& obj)
+    {
+        return (*real == *obj.real && *imag == *obj.imag);
+    }
+
+    bool operator!=(const Complex& obj)
+    {
+        return !(*this == obj);
+    }
+
+    bool operator<(const Complex& obj)
+    {
+        return (*real < *obj.real);
+    }
+
+    bool operator>(const Complex& obj)
+    {
+        return (*real > *obj.real);
+    }
+
+    Complex& operator++()
+    {
+        ++(*real);
+        ++(*imag);
+        return *this;
+    }
+
+    Complex& operator--()
+    {
+        --(*real);
+        --(*imag);
+        return *this;
+    }
+
+    operator double()
+    {
+        return *real;
+    }
+
+    void operator()()
+    {
+        cout << *real;
+
+        if (*imag >= 0)
+            cout << " + " << *imag << "i";
+        else
+            cout << " - " << -*imag << "i";
+
+        cout << endl;
+    }
+
+    friend ostream& operator<<(ostream& out, const Complex& obj)
+    {
+        out << *obj.real;
+
+        if (*obj.imag >= 0)
+            out << " + " << *obj.imag << "i";
+        else
+            out << " - " << -*obj.imag << "i";
+
+        return out;
+    }
+
+    friend istream& operator>>(istream& in, Complex& obj)
+    {
+        cout << "Enter Real: ";
+        in >> *obj.real;
+
+        cout << "Enter Imaginary: ";
+        in >> *obj.imag;
+
+        return in;
+    }
+};
+
+int main()
+{
+    Complex c1(5, 3);
+    Complex c2(2, 4);
+    Complex c3;
+
+    c3 = c1 + c2;
+    cout << "c1 + c2 = " << c3 << endl;
+
+    c3 = c1 - c2;
+    cout << "c1 - c2 = " << c3 << endl;
+
+    c3 = c1 * c2;
+    cout << "c1 * c2 = " << c3 << endl;
+
+    c3 = c1 / c2;
+    cout << "c1 / c2 = " << c3 << endl;
+
+    c1 += c2;
+    cout << "After += : " << c1 << endl;
+
+    c1 -= c2;
+    cout << "After -= : " << c1 << endl;
+
+    ++c1;
+    cout << "After ++ : " << c1 << endl;
+
+    --c1;
+    cout << "After -- : " << c1 << endl;
+
+    if (c1 == c2)
+        cout << "Equal" << endl;
+    else
+        cout << "Not Equal" << endl;
+
+    if (c1 != c2)
+        cout << "Different" << endl;
+
+    if (c1 > c2)
+        cout << "c1 is Greater" << endl;
+    else
+        cout << "c2 is Greater or Equal" << endl;
+
+    double x = c1;
+    cout << "Real Part = " << x << endl;
+
+    cout << "Using Function Call Operator: ";
+    c1();
+
+    cout << "Enter New Complex Number" << endl;
+    cin >> c3;
+
+    cout << "You Entered: " << c3 << endl;
+
+    return 0;
+}
