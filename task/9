@@ -1,0 +1,197 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Shape
+{
+public:
+    virtual float Area()
+    {
+        return 0;
+    }
+
+    virtual float Perimeter()
+    {
+        return 0;
+    }
+
+    virtual ~Shape() {}
+};
+
+class Circle : public Shape
+{
+protected:
+    float r;
+
+public:
+    Circle(float radius)
+    {
+        r = radius;
+    }
+
+    float Area() override
+    {
+        return 3.14159f * r * r;
+    }
+
+    float Perimeter() override
+    {
+        return 2 * 3.14159f * r;
+    }
+};
+
+class HalfCircle : public Circle
+{
+public:
+    HalfCircle(float radius) : Circle(radius) {}
+
+    float Area() override
+    {
+        return Circle::Area() / 2;
+    }
+
+    float Perimeter() override
+    {
+        return (3.14159f * r) + (2 * r);
+    }
+};
+
+class Rectangle : public Shape
+{
+protected:
+    float l, w;
+
+public:
+    Rectangle(float length, float width)
+    {
+        l = length;
+        w = width;
+    }
+
+    float Area() override
+    {
+        return l * w;
+    }
+
+    float Perimeter() override
+    {
+        return 2 * (l + w);
+    }
+};
+
+class Square : public Rectangle
+{
+public:
+    Square(float side) : Rectangle(side, side) {}
+
+    float Area() override
+    {
+        return l * l;
+    }
+
+    float Perimeter() override
+    {
+        return 4 * l;
+    }
+};
+
+class Triangle : public Shape
+{
+protected:
+    float b, h;
+    float s1, s2, s3;
+
+public:
+    Triangle(float base, float height)
+    {
+        b = base;
+        h = height;
+        s1 = s2 = s3 = 0;
+    }
+
+    float Area() override
+    {
+        return 0.5f * b * h;
+    }
+
+    float Perimeter() override
+    {
+        return s1 + s2 + s3;
+    }
+};
+
+class EquilateralTriangle : public Triangle
+{
+public:
+    EquilateralTriangle(float side)
+        : Triangle(side, (sqrt(3.0f) / 2) * side)
+    {
+        s1 = s2 = s3 = side;
+    }
+
+    float Area() override
+    {
+        return (sqrt(3.0f) / 4) * s1 * s1;
+    }
+
+    float Perimeter() override
+    {
+        return 3 * s1;
+    }
+};
+
+class IsoscelesTriangle : public Triangle
+{
+public:
+    IsoscelesTriangle(float equalSide, float base)
+        : Triangle(base, sqrt(equalSide * equalSide - (base * base) / 4))
+    {
+        s1 = equalSide;
+        s2 = equalSide;
+        s3 = base;
+    }
+
+    float Area() override
+    {
+        return 0.5f * b * h;
+    }
+
+    float Perimeter() override
+    {
+        return s1 + s2 + s3;
+    }
+};
+
+int main()
+{
+    Circle c(5);
+    HalfCircle hc(5);
+    Rectangle rec(8, 4);
+    Square sq(6);
+    Triangle t(6, 4);
+    EquilateralTriangle eq(5);
+    IsoscelesTriangle iso(5, 6);
+
+    cout << "Circle Area = " << c.Area() << endl;
+    cout << "Circle Perimeter = " << c.Perimeter() << endl << endl;
+
+    cout << "Half Circle Area = " << hc.Area() << endl;
+    cout << "Half Circle Perimeter = " << hc.Perimeter() << endl << endl;
+
+    cout << "Rectangle Area = " << rec.Area() << endl;
+    cout << "Rectangle Perimeter = " << rec.Perimeter() << endl << endl;
+
+    cout << "Square Area = " << sq.Area() << endl;
+    cout << "Square Perimeter = " << sq.Perimeter() << endl << endl;
+
+    cout << "Triangle Area = " << t.Area() << endl;
+    cout << "Triangle Perimeter = " << t.Perimeter() << endl << endl;
+
+    cout << "Equilateral Triangle Area = " << eq.Area() << endl;
+    cout << "Equilateral Triangle Perimeter = " << eq.Perimeter() << endl << endl;
+
+    cout << "Isosceles Triangle Area = " << iso.Area() << endl;
+    cout << "Isosceles Triangle Perimeter = " << iso.Perimeter() << endl;
+
+    return 0;
+}
